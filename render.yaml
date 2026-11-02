@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: lumiquiz-pdf-mcq
+    runtime: python
+    region: singapore
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn server:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /healthz
+    envVars:
+      - key: PRODUCTION
+        value: "true"
+      - key: OPENAI_MODEL
+        value: gpt-4.1
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: LUMIQUIZ_PASSWORD
+        sync: false
