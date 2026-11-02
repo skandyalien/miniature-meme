@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f7f8fc" />
+  <meta name="description" content="LumiQuiz transforms your PDF documents into focused interactive MCQ tests." />
+  <title>LumiQuiz — PDF to MCQ, beautifully.</title>
+  <style>
+:root{font-family:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color-scheme:light;--page:#f8f9fd;--panel:#ffffff;--panel2:#fbfbff;--text:#24233b;--strong:#171529;--muted:#9b99ae;--muted2:#77758f;--border:#eeecf5;--shadow:0 11px 40px rgba(48,41,95,.04);--purple:#8259e8;--purple2:#ab84fa;--soft-purple:#f4efff;--soft-blue:#edf5ff;--soft-orange:#fff4e8;--green:#27a979;--soft-green:#eaf9f2;--red:#df6d7a;--soft-red:#fff0f1;--upload:#fbfaff;--option:#fff;--glow:rgba(150,102,252,.16)}
+*{box-sizing:border-box}html{height:100%}body{margin:0;min-width:320px;min-height:100%;background:var(--page);color:var(--text);transition:background .28s,color .28s}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{opacity:.51;cursor:not-allowed}button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,.upload-zone:focus-visible{outline:3px solid #c7b6ff;outline-offset:3px}h1,h2,h3,p{margin-top:0}h1,h2,h3,.brand{font-family:Manrope,'DM Sans',sans-serif}.hidden{display:none!important}.svg-sprite{position:absolute;width:0;height:0;overflow:hidden}.icon{width:19px;height:19px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.site-shell{max-width:1660px;margin:auto;min-height:100vh;display:flex;flex-direction:column}
+.topbar{height:92px;display:flex;align-items:center;justify-content:space-between;padding:0 53px;border-bottom:1px solid var(--border);background:var(--panel);gap:16px;position:relative;z-index:2}.brand{display:flex;align-items:center;gap:9px;font-size:22px;font-weight:800;letter-spacing:-1.2px;white-space:nowrap}.brand-mark{background:linear-gradient(140deg,#a98bff,#7950df);color:#fff;height:39px;width:39px;border-radius:14px;display:grid;place-items:center;box-shadow:0 5px 12px rgba(133,93,226,.2)}.brand-mark .icon{width:21px;height:21px}.brand-accent{color:var(--purple)}.brand-beta{font:800 9px Manrope,sans-serif;letter-spacing:1.3px;color:#a09baa;border:1px solid var(--border);border-radius:4px;padding:4px 6px;margin-left:3px}.nav-center{display:flex;align-items:center;gap:20px;font-size:12px;color:var(--muted2)}.nav-active{font-weight:800;color:var(--purple)}.nav-separator{height:15px;width:1px;background:var(--border)}.top-actions{display:flex;align-items:center;gap:13px}.ai-status{font-size:11px;display:flex;gap:7px;align-items:center;color:var(--muted2);white-space:nowrap;margin-right:4px}.status-dot{width:7px;height:7px;border-radius:50%;background:#c2bdcb}.ai-status.ready .status-dot{background:var(--green);box-shadow:0 0 0 3px rgba(39,169,121,.1)}.icon-button{width:39px;height:39px;display:grid;place-items:center;border:1px solid var(--border);background:var(--panel);color:var(--muted2);border-radius:12px;transition:background .2s,transform .2s}.icon-button:hover,.mini-action:hover{background:var(--soft-purple);transform:translateY(-1px)}.chat-launch{display:flex;align-items:center;gap:9px;border:none;border-radius:12px;padding:12px 16px;background:var(--strong);color:#fff;font-size:11px;font-weight:800;box-shadow:0 6px 17px rgba(17,17,38,.11)}.chat-launch .icon{width:15px;height:15px}
+.app-layout{display:grid;grid-template-columns:342px minmax(0,1fr);align-items:stretch;flex:1}.sidebar{background:var(--panel);padding:39px 29px 27px 42px;border-right:1px solid var(--border);box-shadow:3px 0 40px rgba(34,30,76,.014)}.aside-head{margin-bottom:30px}.eyebrow{font-size:10px;letter-spacing:1.65px;font-weight:800;color:var(--purple)}.aside-head h2{font-size:23px;letter-spacing:-.8px;margin:9px 0 4px}.tiny-spark{font-size:15px;color:#c4aaf7;margin-left:6px}.aside-head p{font-size:12px;color:var(--muted2);line-height:1.6;margin:0}.control-section{margin-bottom:30px}.field-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px}.field-head label{font-size:12px;font-weight:800;color:var(--text)}.tiny-tag{font-size:9px;font-weight:800;color:var(--muted);background:var(--page);padding:5px 8px;border-radius:6px;letter-spacing:.3px}.upload-zone{position:relative;min-height:168px;border:1.5px dashed #d7c8f8;background:var(--upload);border-radius:14px;display:flex;align-items:center;justify-content:center;text-align:center;transition:background .2s,border .2s,transform .2s}.upload-zone:hover,.upload-zone.dragover{border-color:var(--purple);background:var(--soft-purple);transform:translateY(-2px)}.file-input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}.upload-placeholder{display:flex;align-items:center;flex-direction:column;pointer-events:none}.upload-icon{display:grid;place-items:center;color:var(--purple);border-radius:14px;background:#eee5ff;width:43px;height:43px;margin-bottom:11px}.upload-icon .icon{width:21px;height:21px}.upload-placeholder strong{font-size:11px;margin-bottom:3px}.upload-placeholder span{font-size:10px;color:var(--muted2)}.upload-placeholder .linkish{color:var(--purple);font-weight:800}.upload-placeholder small{font-size:9px;color:var(--muted);margin-top:12px}.file-present{display:flex;align-items:center;gap:10px;text-align:left;padding:10px;width:100%;pointer-events:none}.file-graphic{width:37px;height:43px;border-radius:10px;background:var(--soft-purple);color:var(--purple);display:grid;place-items:center}.file-details{min-width:0;flex:1;display:flex;flex-direction:column;gap:4px}.file-details strong{font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:164px}.file-details span,.file-details small{color:var(--muted2);font-size:10px}.file-details small{color:var(--purple)}.file-success{border-radius:50%;width:24px;height:24px;background:var(--soft-green);color:var(--green);display:grid;place-items:center}.file-success .icon{width:14px;height:14px}.number-output{font-size:19px;color:var(--purple);font-family:Manrope}.sidebar input[type=range]{width:100%;margin:8px 0 0;accent-color:var(--purple);cursor:pointer}.range-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin:8px 1px 0}.segmented{display:flex;gap:4px;background:var(--page);border:1px solid var(--border);border-radius:12px;padding:4px}.segmented button{flex:1;min-width:0;border:0;background:transparent;padding:10px 2px;border-radius:8px;color:var(--muted2);font-size:10px;font-weight:800;transition:all .15s}.segmented button.active{background:var(--panel);color:var(--purple);box-shadow:0 2px 9px rgba(40,38,92,.09)}.compact-section{margin-top:2px;margin-bottom:25px}.settings-row{display:flex;align-items:center;gap:9px;margin:16px 0}.setting-icon{width:33px;height:33px;display:grid;place-items:center;border-radius:10px}.setting-icon .icon{height:16px;width:16px}.setting-icon.purple{color:var(--purple);background:var(--soft-purple)}.setting-icon.blue{color:#578cd8;background:var(--soft-blue)}.setting-caption{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}.setting-caption strong{font-size:11px}.setting-caption span{font-size:10px;color:var(--muted)}.switch{position:relative;width:37px;height:23px;flex:none}.switch input{opacity:0;width:0;height:0}.switch-track{position:absolute;inset:0;border-radius:99px;background:#dcd9e8;transition:background .2s;cursor:pointer}.switch-track:before{content:"";position:absolute;left:3px;top:3px;width:17px;height:17px;background:#fff;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,.08);transition:transform .2s}.switch input:checked+.switch-track{background:#956bea}.switch input:checked+.switch-track:before{transform:translateX(14px)}.time-select-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0 0 42px;font-size:10px;color:var(--muted2)}.time-select-row select{font-size:10px;max-width:116px;padding:7px 8px;border:1px solid var(--border);color:var(--text);background:var(--panel);border-radius:8px;outline:none}.primary-btn{border:0;background:linear-gradient(110deg,#9f79f6,#7950da);color:white;padding:14px 20px;display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:12px;font-size:12px;font-weight:800;box-shadow:0 10px 22px rgba(131,88,226,.22);transition:transform .18s,box-shadow .18s}.primary-btn:not(:disabled):hover{transform:translateY(-2px);box-shadow:0 15px 26px rgba(131,88,226,.3)}.generate-btn{width:100%}.generate-btn .icon{width:15px;height:15px}.generate-btn .arrow-icon{margin-left:auto}.or-divider{text-align:center;color:var(--muted);font-size:10px;position:relative;margin:16px 0}.or-divider:before{content:"";position:absolute;top:50%;left:0;right:0;height:1px;background:var(--border)}.or-divider span{position:relative;padding:0 13px;background:var(--panel)}.demo-btn{width:100%;border:1px solid var(--border);border-radius:12px;display:flex;align-items:center;gap:9px;color:var(--text);background:var(--panel);font-size:11px;font-weight:700;padding:12px 10px;text-align:left}.demo-btn>.icon{width:16px;height:16px;color:var(--purple)}.demo-btn .demo-chevron{margin-left:auto;width:16px;height:16px;color:var(--muted)}.demo-btn:hover{background:var(--soft-purple)}.privacy-line{color:var(--muted);font-size:9px;line-height:1.6;display:flex;gap:7px;margin:19px 0 0}.privacy-line .icon{width:14px;height:14px;color:#9f8fc4}
+.main-area{position:relative;min-width:0;overflow:hidden;min-height:710px;background:radial-gradient(ellipse 80% 60% at 78% 30%,rgba(222,207,255,.22),transparent 70%),var(--page)}.welcome-view{min-height:700px;padding:86px 51px 46px;display:grid;grid-template-columns:minmax(350px,1fr) minmax(400px,1fr);grid-template-rows:1fr auto;align-items:center;column-gap:6px}.hero-copy{max-width:530px;position:relative;z-index:1;align-self:center;margin-top:-22px}.intro-pill{display:inline-flex;align-items:center;gap:8px;font-size:9px;letter-spacing:1.2px;font-weight:800;color:var(--purple);padding:9px 13px;border-radius:30px;background:var(--soft-purple);border:1px solid rgba(158,120,243,.13);margin-bottom:24px}.intro-pill>span:last-child{font-size:13px}.intro-dot{width:6px;height:6px;background:var(--purple);border-radius:50%}.hero-copy h1{font-size:clamp(42px,4.4vw,67px);line-height:1.13;letter-spacing:-3.4px;color:var(--strong);font-weight:800;margin:0 0 22px}.gradient-word{background:linear-gradient(90deg,#9b78ef 10%,#7351dd 54%,#d69cda);color:transparent;background-clip:text}.hero-copy>p{font-size:14px;line-height:1.9;max-width:410px;color:var(--muted2);margin-bottom:29px}.hero-actions{display:flex;align-items:center;gap:21px}.hero-primary{background:var(--strong);color:#fff;border:0;border-radius:12px;padding:15px 21px;display:flex;align-items:center;gap:24px;font-size:12px;font-weight:800;box-shadow:0 12px 27px rgba(30,24,63,.11);transition:transform .2s}.hero-primary:hover{transform:translateY(-3px)}.hero-primary .icon{width:16px;height:16px}.hero-secondary{border:0;background:none;color:var(--purple);font-size:12px;font-weight:800;display:flex;align-items:center;gap:5px}.hero-secondary .icon{height:15px;width:15px}.mini-proof{margin-top:52px;display:flex;align-items:center;gap:11px}.proof-icon{width:36px;height:36px;border:1px solid #e7ddfc;border-radius:11px;background:var(--panel);display:grid;place-items:center;color:var(--purple)}.proof-icon .icon{height:15px;width:15px}.mini-proof div:last-child{display:flex;flex-direction:column;gap:4px}.mini-proof strong{font-size:11px}.mini-proof span{font-size:10px;color:var(--muted)}
+.hero-art{position:relative;height:440px;max-width:530px;width:100%;justify-self:center;perspective:1150px;transform-style:preserve-3d}.orbit{border:1px solid rgba(166,137,235,.13);border-radius:50%;position:absolute;left:50%;top:47%;transform:translate(-50%,-50%) rotate(-24deg)}.orbit-one{width:435px;height:435px}.orbit-two{width:340px;height:340px}.orbit-three{width:245px;height:245px}.visual-card{position:absolute;z-index:2;width:365px;max-width:calc(100% - 50px);top:42px;left:50%;margin-left:-180px;background:var(--panel);padding:22px 23px;border:1px solid rgba(223,216,239,.75);border-radius:20px;box-shadow:0 30px 80px rgba(94,64,158,.13),0 2px 13px rgba(94,64,158,.04);transform:rotate(-4deg) rotateY(-8deg) rotateX(4deg);transition:transform .3s ease;will-change:transform}.visual-card:hover{transform:rotate(-2deg) rotateY(0deg) rotateX(0deg) translateY(-7px)}.v-top{display:flex;justify-content:space-between;align-items:center;gap:8px}.v-label{color:var(--purple);font-size:8px;letter-spacing:1px;font-weight:800}.v-count{font-size:9px;font-weight:800;color:var(--muted)}.v-question{margin:19px 0;font-family:Manrope,sans-serif;font-size:17px;font-weight:800;line-height:1.5;color:var(--strong)}.v-option{border:1px solid var(--border);padding:11px;display:flex;align-items:center;gap:12px;margin:9px 0;border-radius:9px;font-size:10px;font-weight:700;color:var(--muted2)}.v-option span{width:21px;height:21px;display:grid;place-items:center;background:var(--page);border-radius:6px;color:var(--muted)}.v-option.chosen{border-color:#c8adef;background:#f9f5ff;color:var(--text)}.v-option.chosen span{background:#8b61e2;color:#fff}.v-option b{margin-left:auto;color:var(--purple)}.v-feedback{margin-top:18px;background:var(--soft-green);color:#2a9b71;padding:12px;border-radius:10px;font-size:9px;font-weight:800}.float-chip{position:absolute;display:flex;align-items:center;gap:9px;padding:12px 14px;background:var(--panel);border-radius:11px;border:1px solid var(--border);box-shadow:0 9px 27px rgba(82,54,146,.08);font-size:10px;font-weight:800;z-index:3;white-space:nowrap}.float-chip span{display:grid;place-items:center;width:25px;height:25px;background:var(--soft-purple);color:var(--purple);border-radius:8px;font-size:15px}.chip-top{top:12px;right:-12px;transform:rotate(7deg);animation:levitate 7s ease-in-out infinite}.chip-bottom{bottom:44px;left:-8px;transform:rotate(6deg);animation:levitate 8s ease-in-out -4s infinite}.chip-bottom span{color:#f2ac63;background:var(--soft-orange)}.float-square{position:absolute;z-index:0;display:grid;place-items:center;border-radius:20px;box-shadow:0 15px 30px rgba(118,80,194,.1);transform:rotate(20deg)}.square-purple{height:64px;width:64px;top:5px;left:48px;background:linear-gradient(140deg,#cbb8ff,#9b76ef);color:#fff;font-size:27px}.square-orange{height:39px;width:39px;right:12px;bottom:20px;background:#f9d9b4;color:#fff;font-size:21px}@keyframes levitate{0%,100%{translate:0 0}50%{translate:0 -9px}}.feature-strip{grid-column:1/-1;border-top:1px solid var(--border);padding-top:28px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.feature-strip>div{display:grid;grid-template-columns:40px 1fr;grid-template-rows:auto auto;column-gap:11px;align-items:center}.feat-icon{grid-row:1/3;width:40px;height:40px;border-radius:12px;display:grid;place-items:center}.feat-icon .icon{width:18px;height:18px}.feat-violet{background:var(--soft-purple);color:var(--purple)}.feat-blue{background:var(--soft-blue);color:#6694e5}.feat-orange{background:var(--soft-orange);color:#e9ab66}.feature-strip strong{font-size:11px;align-self:end}.feature-strip small{font-size:10px;color:var(--muted);align-self:start;margin-top:4px}.app-footer{display:flex;justify-content:space-between;background:var(--panel);border-top:1px solid var(--border);color:var(--muted);font-size:10px;padding:18px 53px}.footer-spark{color:var(--purple)}
+.loading-view{max-width:610px;margin:105px auto;text-align:center;padding:40px 24px}.loading-animation{width:185px;height:185px;margin:0 auto 28px;display:grid;place-items:center;position:relative}.loading-orbit{position:absolute;inset:17px;border:1px solid rgba(145,105,227,.3);border-radius:50%;animation:spin 8s linear infinite}.l-orbit-2{inset:0;border-style:dashed;animation:spin 17s linear infinite reverse}.loading-gem{width:90px;height:90px;border-radius:27px;display:grid;place-items:center;background:linear-gradient(140deg,#bda1ff,#845be9);color:#fff;font-size:46px;box-shadow:0 22px 60px rgba(126,84,228,.3);animation:pulse 3s ease-in-out infinite}@keyframes spin{to{transform:rotate(360deg)}}@keyframes pulse{50%{transform:scale(1.07)}}.loading-view h2{font-size:29px;letter-spacing:-1px;line-height:1.3;margin:14px 0 12px}.loading-view>p{font-size:13px;line-height:1.6;color:var(--muted2)}.loading-steps{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:8px;margin:30px 0}.loading-steps span{background:var(--panel);border:1px solid var(--border);color:var(--muted);padding:9px 12px;border-radius:9px;font-size:10px}.loading-steps span.step-on{background:var(--soft-purple);color:var(--purple);border-color:#e5d8ff}.loading-view .loading-sub{font-size:11px;color:var(--muted)}.secondary-outline{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--panel);border:1px solid var(--border);border-radius:11px;color:var(--text);font-size:12px;font-weight:800;padding:12px 18px}.secondary-outline .icon{width:16px;height:16px}.secondary-outline:hover{border-color:var(--purple)}
+.quiz-view{padding:39px clamp(28px,5.2vw,75px) 45px;max-width:1060px;margin:0 auto}.quiz-head{display:flex;align-items:center;justify-content:space-between;gap:15px}.quiz-head h2{font-size:24px;line-height:1.3;letter-spacing:-1px;margin:8px 0 0;max-width:550px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}.quiz-head-actions{display:flex;align-items:center;gap:10px}.question-count{font-size:11px;color:var(--muted2);font-weight:700;white-space:nowrap}.mini-action{border:1px solid var(--border);background:var(--panel);color:var(--muted2);width:33px;height:33px;display:grid;place-items:center;border-radius:10px}.mini-action .icon{width:16px;height:16px}.progress-track{height:6px;border-radius:100px;background:#eae4f6;overflow:hidden;margin:20px 0 19px}.progress-bar{width:0;height:100%;background:linear-gradient(90deg,#b495ff,#7a52db);border-radius:100px;transition:width .32s}.question-metadata{display:flex;align-items:center;gap:8px;margin-bottom:17px}.meta-chip,.timer-pill{display:inline-flex;align-items:center;gap:6px;padding:8px 10px;border-radius:8px;background:var(--panel);border:1px solid var(--border);color:var(--muted2);font-size:10px;font-weight:800;max-width:55%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.meta-chip:first-child{color:var(--purple);background:var(--soft-purple);border-color:transparent}.timer-pill{margin-left:auto;color:var(--purple);font-variant-numeric:tabular-nums}.timer-pill .icon{width:14px;height:14px}.timer-pill.urgent{color:var(--red);background:var(--soft-red);border-color:#ffd6de;animation:pulse 1.2s ease-in-out infinite}.question-card{--mx:50%;--my:50%;position:relative;background:var(--panel);border:1px solid var(--border);box-shadow:var(--shadow);border-radius:20px;padding:30px clamp(22px,3.5vw,44px) 28px;overflow:hidden;min-height:290px;isolation:isolate}.question-card:before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(260px circle at var(--mx) var(--my),var(--glow),transparent 80%);opacity:.42;z-index:-1}.question-kicker{display:flex;align-items:center;gap:12px;margin-bottom:19px;font-size:9px;letter-spacing:1.05px;font-weight:800;color:var(--muted)}.q-number{font-size:11px;background:var(--soft-purple);color:var(--purple);width:33px;height:33px;border-radius:10px;display:grid;place-items:center;letter-spacing:0}.question-card h3{font-size:clamp(18px,2vw,23px);letter-spacing:-.55px;line-height:1.58;color:var(--strong);max-width:850px;margin:0 0 24px}.options-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.option-btn{border:1.3px solid var(--border);background:var(--option);border-radius:12px;min-height:77px;padding:14px 15px;display:flex;align-items:center;gap:13px;text-align:left;color:var(--text);font-weight:700;font-size:12px;line-height:1.45;transition:border-color .18s,transform .18s,box-shadow .18s,background .18s}.option-btn:not(:disabled):hover{border-color:#c6afe9;box-shadow:0 8px 20px rgba(103,72,167,.08);transform:translateY(-2px)}.option-letter{display:grid;place-items:center;width:34px;height:34px;flex:none;border-radius:9px;background:var(--page);border:1px solid var(--border);color:var(--muted2);font-size:11px;font-weight:800}.option-text{flex:1}.option-mark{display:grid;place-items:center;width:23px;height:23px;flex:none;border-radius:50%;font-size:12px}.option-btn.correct{border-color:#8ddfc0;background:var(--soft-green)}.option-btn.correct .option-letter{background:#31ad7f;border-color:#31ad7f;color:#fff}.option-btn.correct .option-mark{color:#fff;background:#31ad7f}.option-btn.incorrect{border-color:#ffc0c9;background:var(--soft-red)}.option-btn.incorrect .option-letter{background:#ed8b99;border-color:#ed8b99;color:#fff}.option-btn.incorrect .option-mark{color:#fff;background:#ed8b99}.option-btn.dimmed{opacity:.66}.option-btn:disabled{cursor:default}.result-feedback{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:800;padding:14px 16px;border-radius:11px;margin-top:18px}.result-feedback.good{color:#218f66;background:var(--soft-green)}.result-feedback.bad{color:#cb5a68;background:var(--soft-red)}.result-feedback.neutral{color:var(--muted2);background:var(--page)}.explanation{background:var(--panel2);border:1px solid var(--border);padding:18px 20px;border-radius:12px;margin-top:13px}.explain-title{font-size:10px;letter-spacing:.7px;font-weight:800;color:var(--purple);display:flex;align-items:center;gap:7px}.explain-title .icon{width:16px;height:16px}.explanation p{font-size:12px;line-height:1.8;color:var(--muted2);margin:10px 0 0;white-space:pre-line}.hint-box{display:flex;align-items:flex-start;gap:10px;background:var(--soft-orange);border-radius:11px;padding:13px 15px;margin-top:13px;color:#aa793d;font-size:12px;line-height:1.6}.hint-box .icon{width:17px;height:17px;flex:none;margin-top:1px}.diagram-container{background:var(--page);border:1px solid var(--border);border-radius:14px;padding:14px;margin:-2px 0 20px}.diagram-label{display:flex;align-items:center;gap:7px;color:var(--muted2);font-weight:800;font-size:10px;margin-bottom:10px}.diagram-label .icon{width:15px;height:15px;color:var(--purple)}.diagram-expand{border:0;background:transparent;color:var(--purple);font-size:10px;font-weight:800;margin-left:auto;display:flex;align-items:center;gap:5px}.diagram-expand .icon{width:14px;height:14px}.diagram-container img{display:block;max-width:100%;max-height:280px;object-fit:contain;margin:auto;border-radius:7px;cursor:zoom-in}.quiz-bottom{display:flex;align-items:center;gap:17px;padding:23px 5px 4px}.text-action{display:flex;align-items:center;gap:7px;background:transparent;border:0;color:var(--purple);font-size:11px;font-weight:800;padding:7px 0}.text-action .icon{width:17px;height:17px}.text-action:disabled{opacity:.4}.bottom-spacer{flex:1}.skip-btn{border:0;background:transparent;color:var(--muted2);font-size:12px;font-weight:800;padding:10px}.next-btn{padding:13px 17px}.next-btn .icon{width:15px;height:15px}
+.summary-view{max-width:720px;margin:45px auto 65px;padding:0 30px;text-align:center}.score-deco{font-size:28px;color:var(--purple);margin-bottom:10px}.summary-view h2{font-size:34px;letter-spacing:-1.4px;margin:12px 0 8px}.summary-view>p{font-size:13px;color:var(--muted2)}.score-circle{width:200px;height:200px;margin:30px auto 27px;display:grid;place-items:center;border-radius:50%;background:conic-gradient(var(--purple) var(--score,0%),#e9e2fa 0);box-shadow:0 15px 35px rgba(122,83,205,.11)}.score-circle>div{width:166px;height:166px;background:var(--panel);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center}.score-circle strong{font:800 44px Manrope,sans-serif;letter-spacing:-2px}.score-circle span{font-size:10px;letter-spacing:1.4px;color:var(--muted)}.summary-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:470px;margin:0 auto 25px}.summary-metrics div{background:var(--panel);border:1px solid var(--border);border-radius:13px;padding:17px 10px;display:flex;flex-direction:column;gap:5px}.summary-metrics strong{font:800 22px Manrope;color:var(--strong)}.summary-metrics span{font-size:11px;color:var(--muted2)}.summary-actions{display:flex;justify-content:center;gap:11px;flex-wrap:wrap}.another-btn{display:block;border:0;background:transparent;color:var(--purple);font-size:12px;font-weight:800;margin:20px auto 40px}.review-panel{text-align:left;border-top:1px solid var(--border);padding-top:23px}.review-title{display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:800;margin-bottom:13px}.review-title span{font-size:10px;color:var(--muted);font-weight:500}.review-item{background:var(--panel);border:1px solid var(--border);border-radius:12px;margin:8px 0;padding:12px 15px;display:flex;gap:11px;align-items:flex-start}.review-item>span{width:23px;height:23px;border-radius:7px;display:grid;place-items:center;flex:none;background:var(--soft-purple);color:var(--purple);font-size:11px}.review-item .review-copy{flex:1;min-width:0}.review-item strong{display:block;font-size:11px;line-height:1.5}.review-item small{display:block;color:var(--muted2);font-size:10px;margin-top:6px;line-height:1.6}.review-item .review-state{font-size:10px;font-weight:800;flex:none}.review-state.good{color:var(--green)}.review-state.bad{color:var(--red)}.review-state.skip{color:var(--muted)}
+.drawer-scrim{position:fixed;inset:0;background:rgba(26,20,48,.28);z-index:10;backdrop-filter:blur(2px)}.chat-drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100vw);background:var(--panel);box-shadow:-10px 0 60px rgba(20,15,51,.16);z-index:11;transform:translateX(102%);transition:transform .28s;display:flex;flex-direction:column}.chat-drawer.open{transform:translateX(0)}.chat-head{height:89px;border-bottom:1px solid var(--border);padding:18px 20px;display:flex;align-items:center;gap:12px}.chat-head-icon{width:39px;height:39px;display:grid;place-items:center;background:var(--soft-purple);color:var(--purple);border-radius:12px}.chat-head h3{font-size:14px;margin:0 0 4px}.chat-head span{font-size:10px;color:var(--muted2)}.chat-head .icon-button{margin-left:auto}.chat-history{padding:20px 19px;flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:14px}.assistant-bubble{display:flex;align-items:flex-start;gap:8px;max-width:94%;align-self:flex-start}.chat-avatar{flex:none;width:27px;height:27px;display:grid;place-items:center;color:var(--purple);background:var(--soft-purple);border-radius:9px}.assistant-bubble div{background:var(--page);border:1px solid var(--border);padding:12px 14px;border-radius:4px 14px 14px 14px;font-size:12px;line-height:1.7;white-space:pre-line;overflow-wrap:anywhere}.user-bubble{align-self:flex-end;background:var(--soft-purple);color:var(--text);border-radius:14px 4px 14px 14px;padding:12px 14px;max-width:85%;font-size:12px;line-height:1.6;white-space:pre-line;overflow-wrap:anywhere}.chat-quick{padding:9px 17px 12px;display:flex;gap:5px;flex-wrap:wrap}.chat-quick button{background:var(--panel);border:1px solid var(--border);font-size:10px;color:var(--purple);border-radius:100px;padding:7px 9px}.chat-quick button:hover{background:var(--soft-purple)}.chat-form{display:flex;align-items:center;gap:9px;margin:0 16px 9px;border:1px solid var(--border);padding:8px;border-radius:13px;background:var(--page)}.chat-form textarea{flex:1;resize:none;border:0;outline:none;background:transparent;color:var(--text);font-size:12px;line-height:1.45;max-height:100px}.chat-form button{width:36px;height:36px;display:grid;place-items:center;border:0;border-radius:10px;color:#fff;background:var(--purple)}.chat-form button .icon{width:17px;height:17px}.chat-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 17px 19px;font-size:9px;color:var(--muted)}.chat-foot button{border:0;background:transparent;color:var(--purple);font-size:10px;font-weight:800;white-space:nowrap}.modal-backdrop{position:fixed;inset:0;background:rgba(20,18,36,.7);z-index:30;display:grid;place-items:center;padding:18px}.image-modal-card{max-height:95vh;max-width:min(1000px,100%);width:100%;background:var(--panel);border-radius:14px;padding:10px;display:flex;flex-direction:column;box-shadow:0 30px 80px rgba(0,0,0,.3)}.image-modal-head{display:flex;justify-content:space-between;align-items:center;padding:4px 5px 10px 12px;font-size:12px}.image-modal-card img{display:block;object-fit:contain;min-height:0;max-height:85vh;max-width:100%;margin:auto;border-radius:6px}.toast-container{position:fixed;bottom:23px;left:50%;transform:translateX(-50%);z-index:50;display:flex;flex-direction:column;gap:8px;min-width:min(500px,90vw)}.toast{background:#29253e;color:white;border-radius:12px;padding:13px 18px;text-align:center;box-shadow:0 15px 35px rgba(24,20,52,.2);font-size:12px;line-height:1.6;animation:toastIn .2s ease}.toast.error{background:#a53f57}@keyframes toastIn{from{transform:translateY(10px);opacity:0}}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+body[data-theme="dark"]{color-scheme:dark;--page:#141321;--panel:#201e2e;--panel2:#232132;--text:#e9e6f6;--strong:#fffaff;--muted:#9791ad;--muted2:#b4aec8;--border:#343144;--shadow:0 18px 60px rgba(0,0,0,.14);--soft-purple:#302540;--soft-blue:#253047;--soft-orange:#3a3029;--soft-green:#203d37;--soft-red:#422a36;--upload:#252033;--option:#242233;--glow:rgba(139,97,214,.25)}body[data-theme="dark"] .main-area{background:radial-gradient(ellipse 70% 58% at 80% 30%,rgba(115,70,171,.1),transparent 70%),var(--page)}body[data-theme="dark"] .v-option.chosen{background:#322940;border-color:#65518b}body[data-theme="dark"] .upload-icon{background:#352b4e}body[data-theme="dark"] .score-circle{background:conic-gradient(var(--purple) var(--score,0%),#3b3254 0)}body[data-theme="dark"] .option-btn.correct{border-color:#408d6f}body[data-theme="dark"] .option-btn.incorrect{border-color:#a75d6e}body[data-theme="dark"] .hero-primary,body[data-theme="dark"] .chat-launch{background:#eee8ff;color:#2a203d}body[data-theme="dark"] .loading-steps span.step-on{border-color:#5a457c}
+@media(max-width:1190px){.welcome-view{grid-template-columns:minmax(300px,1fr) minmax(270px,1fr);padding-left:35px;padding-right:29px}.hero-copy h1{font-size:53px}.hero-art{transform:scale(.83);transform-origin:center}.float-chip.chip-top{right:-25px}.sidebar{padding-left:27px;padding-right:24px}.app-layout{grid-template-columns:310px minmax(0,1fr)}}
+@media(max-width:930px){.topbar{height:73px;padding:0 23px}.nav-center{display:none}.app-layout{grid-template-columns:280px minmax(0,1fr)}.sidebar{padding:28px 21px}.welcome-view{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:22px;min-height:unset;padding:70px 38px 30px}.hero-copy{margin:0;align-self:auto}.hero-copy h1{font-size:50px}.hero-art{height:290px;max-width:430px;transform:scale(.7);transform-origin:top center;margin:0 auto -90px}.feature-strip{width:100%;grid-template-columns:1fr;gap:12px;padding-top:25px}.app-footer{padding:15px 22px}.question-card{padding:23px 20px}.options-grid{grid-template-columns:1fr}}
+@media(max-width:680px){.topbar{padding:0 15px;height:68px}.brand{font-size:19px}.brand-mark{height:35px;width:35px}.brand-beta,.ai-status,.chat-launch span{display:none}.chat-launch{padding:10px;border-radius:11px}.top-actions{gap:8px}.icon-button{width:36px;height:36px}.app-layout{display:flex;flex-direction:column}.sidebar{border-right:0;border-bottom:1px solid var(--border);padding:22px 19px 25px}.aside-head{margin-bottom:21px}.aside-head h2{font-size:21px}.sidebar .control-section{margin-bottom:20px}.upload-zone{min-height:128px}.upload-icon{height:37px;width:37px;margin-bottom:8px}.sidebar .compact-section{margin-bottom:18px}.settings-row{margin:12px 0}.main-area{min-height:520px}.welcome-view{padding:51px 23px 30px;gap:10px}.hero-copy h1{font-size:47px;letter-spacing:-2.5px}.hero-copy>p{font-size:13px}.intro-pill{font-size:8px}.mini-proof{margin-top:33px}.hero-art{transform:scale(.68);height:250px;margin:16px auto -80px}.feature-strip{grid-template-columns:1fr;gap:10px;margin-top:5px}.quiz-view{padding:25px 15px 35px}.quiz-head h2{font-size:20px;max-width:230px}.question-count{font-size:10px}.question-card h3{font-size:18px}.question-metadata{gap:5px}.meta-chip{font-size:9px;padding:7px}.meta-chip:first-child{max-width:45%}.timer-pill{font-size:9px}.quiz-bottom{gap:11px;flex-wrap:wrap}.text-action{font-size:10px}.bottom-spacer{flex-basis:100%;height:0}.next-btn{margin-left:auto}.app-footer{font-size:9px;gap:10px}.app-footer span:last-child{max-width:45%;text-align:right}}
+@media(max-width:390px){.hero-copy h1{font-size:43px}.hero-art{transform:scale(.56);margin-bottom:-115px}.hero-actions{gap:12px}.hero-primary{gap:11px}.chat-launch{display:none}.options-grid{gap:9px}.option-btn{padding:11px;min-height:68px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+
+.generation-status{max-width:430px;margin:0 auto 20px;padding:17px 18px;background:var(--panel);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow)}.generation-meter{height:7px;overflow:hidden;background:var(--soft-purple);border-radius:99px}.generation-meter span{display:block;height:100%;width:0;background:linear-gradient(90deg,#7950da,#ba9bfc);border-radius:99px;transition:width .35s}.generation-numbers{margin-top:13px;display:flex;justify-content:space-between;gap:10px;font-size:11px;font-weight:800;color:var(--muted2)}.generation-numbers span:first-child{color:var(--purple)}.generation-status p{font-size:11px;color:var(--muted2);margin:11px 0 0}.loading-view .generation-status .loading-sub{margin:0}
+
+.review-entry{background:var(--panel);border:1px solid var(--border);border-radius:13px;padding:14px 17px;margin-bottom:10px;text-align:left;display:grid;grid-template-columns:80px minmax(0,1fr);gap:5px 11px;align-items:start;box-shadow:var(--shadow)}
+.review-status{grid-row:1/3;font-size:10px;font-weight:800;color:var(--purple);padding-top:2px}
+.review-entry strong{font-size:12px;font-weight:800;line-height:1.5;color:var(--strong)}
+.review-entry p{font-size:11px;line-height:1.7;color:var(--muted2);margin:3px 0 0;grid-column:2}
+@media(max-width:450px){.review-entry{grid-template-columns:1fr}.review-status,.review-entry p{grid-row:auto;grid-column:1}}
+/* Keep the decorative 3D study card inside its own row on narrow screens. */
+@media(max-width:680px){
+  .welcome-view{gap:16px}
+  .hero-art{height:340px;transform:scale(.72);transform-origin:center top;margin:20px auto 0}
+  .feature-strip{margin-top:0}
+}
+@media(max-width:390px){
+  .hero-art{height:300px;transform:scale(.60);margin:18px auto 0}
+}
+
+</style>
+</head>
+<body data-theme="light">
+  <svg class="svg-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 3 1.7 5.3L19 10l-5.3 1.7L12 17l-1.7-5.3L5 10l5.3-1.7L12 3ZM19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8L19 16ZM4 16l.55 1.45L6 18l-1.45.55L4 20l-.55-1.45L2 18l1.45-.55L4 16Z" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4m0 0L7 9m5-5 5 5M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M13 2v7h7M8 14h8M8 18h6"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.9 13a9 9 0 0 1-9.9-9.9A9 9 0 1 0 20.9 13Z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4.5 4.5L19 7"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="i-back" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6m-5 4h4m-6.5-7A7.5 7.5 0 1 1 16.5 15c-1.1 1-1.5 2-1.5 3H9c0-1-.4-2-1.5-3Z"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></symbol>
+    <symbol id="i-message" viewBox="0 0 24 24"><path d="M20 11.5a8 8 0 0 1-8 8 9 9 0 0 1-4-.9L3 20l1.4-4.6a8 8 0 1 1 15.6-3.9Z"/><path d="M8 11.5h8M8 15h5"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M5 5 19 19M19 5 5 19"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15m0 0-6-6m6 6-6 6"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.5 9A7.5 7.5 0 0 1 18 6l2 1M4 17l2 1a7.5 7.5 0 0 0 12.5-3"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></symbol>
+    <symbol id="i-max" viewBox="0 0 24 24"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 6c-3.5-2-6-2-9-1v15c3-1 5.5-1 9 1 3.5-2 6-2 9-1V5c-3-1-5.5-1-9 1ZM12 6v15"/></symbol>
+  </svg>
+
+  <div class="site-shell" id="siteShell">
+    <header class="topbar">
+      <div class="brand" aria-label="LumiQuiz home">
+        <div class="brand-mark"><svg class="icon"><use href="#i-spark"/></svg></div>
+        <span>Lumi<span class="brand-accent">Quiz</span></span>
+        <span class="brand-beta">STUDIO</span>
+      </div>
+      <div class="nav-center"><span class="nav-active">Workspace</span><span class="nav-separator"></span><span class="muted">Your focused study space</span></div>
+      <div class="top-actions">
+        <span class="ai-status" id="aiStatus"><span class="status-dot"></span><span id="aiStatusLabel">Checking AI</span></span>
+        <button class="icon-button theme-button" id="themeBtn" title="Toggle dark mode" aria-label="Toggle dark mode"><svg class="icon" id="themeIcon"><use href="#i-moon"/></svg></button>
+        <button class="chat-launch" id="askTopBtn"><svg class="icon"><use href="#i-message"/></svg><span>Ask ChatGPT</span></button>
+      </div>
+    </header>
+
+    <div class="app-layout">
+      <aside class="sidebar">
+        <div class="aside-head"><span class="eyebrow">YOUR WORKSPACE</span><h2>Test setup<span class="tiny-spark">✦</span></h2><p>Make knowledge stick, one question at a time.</p></div>
+
+        <section class="control-section">
+          <div class="field-head"><label for="pdfInput">Study material</label><span class="tiny-tag">PDF only</span></div>
+          <div class="upload-zone" id="uploadZone" role="button" tabindex="0" aria-label="Upload a PDF">
+            <input type="file" id="pdfInput" accept="application/pdf,.pdf" class="file-input" aria-label="Select PDF file" />
+            <div class="upload-placeholder" id="uploadPlaceholder">
+              <div class="upload-icon"><svg class="icon"><use href="#i-upload"/></svg></div>
+              <strong>Drop your PDF here</strong><span>or <span class="linkish">browse files</span> to upload</span><small>Up to 18 MB · 250 pages</small>
+            </div>
+            <div class="file-present hidden" id="filePresent">
+              <div class="file-graphic"><svg class="icon"><use href="#i-file"/></svg></div>
+              <div class="file-details"><strong id="fileName">Your document.pdf</strong><span id="fileMeta">12 pages · 1.2 MB</span><small>Click to replace</small></div>
+              <div class="file-success"><svg class="icon"><use href="#i-check"/></svg></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="control-section">
+          <div class="field-head"><label>Number of questions</label><strong class="number-output" id="countOutput">10</strong></div>
+          <input id="countSlider" type="range" min="5" max="40" step="5" value="10" aria-label="Number of questions" />
+          <div class="range-labels"><span>5</span><span>20</span><span>40</span></div>
+        </section>
+
+        <section class="control-section">
+          <div class="field-head"><label>Difficulty</label></div>
+          <div class="segmented" role="group" aria-label="Difficulty"><button data-difficulty="Easy">Easy</button><button data-difficulty="Balanced" class="active">Balanced</button><button data-difficulty="Challenging">Hard</button></div>
+        </section>
+
+        <section class="control-section compact-section">
+          <div class="settings-row"><div class="setting-icon purple"><svg class="icon"><use href="#i-image"/></svg></div><div class="setting-caption"><strong>Visual questions</strong><span>Include PDF diagrams</span></div><label class="switch"><input type="checkbox" id="diagramToggle" checked aria-label="Include diagrams" /><span class="switch-track"></span></label></div>
+          <div class="settings-row"><div class="setting-icon blue"><svg class="icon"><use href="#i-clock"/></svg></div><div class="setting-caption"><strong>Question timer</strong><span>Make every second count</span></div><label class="switch"><input type="checkbox" id="timerToggle" checked aria-label="Enable question timer" /><span class="switch-track"></span></label></div>
+          <div class="time-select-row" id="timeRow"><span>Time per question</span><select id="timerSelect" aria-label="Seconds per question"><option value="30">30 seconds</option><option value="60" selected>60 seconds</option><option value="90">90 seconds</option><option value="120">2 minutes</option></select></div>
+        </section>
+
+        <button class="primary-btn generate-btn" id="generateBtn" disabled><svg class="icon"><use href="#i-spark"/></svg><span id="generateLabel">Generate my quiz</span><svg class="icon arrow-icon"><use href="#i-arrow"/></svg></button>
+        <div class="or-divider"><span>or explore first</span></div>
+        <button class="demo-btn" id="demoBtn"><svg class="icon"><use href="#i-book"/></svg>Try sample psychiatry quiz<svg class="icon demo-chevron"><use href="#i-chevron"/></svg></button>
+        <p class="privacy-line"><svg class="icon"><use href="#i-shield"/></svg>PDFs remain in a temporary session. Generation sends the PDF to the configured AI API.</p>
+      </aside>
+
+      <main class="main-area" id="mainArea">
+        <section class="welcome-view" id="welcomeView">
+          <div class="hero-copy">
+            <div class="intro-pill"><span class="intro-dot"></span>YOUR NEW FAVORITE WAY TO STUDY <span>✧</span></div>
+            <h1>From pages to<br/><span class="gradient-word">progress.</span></h1>
+            <p>Upload your notes. Get beautifully crafted multiple-choice questions with clear explanations, visual clues, and a little help when you need it.</p>
+            <div class="hero-actions"><button class="hero-primary" id="heroUploadBtn">Upload a PDF<svg class="icon"><use href="#i-arrow"/></svg></button><button class="hero-secondary" id="heroDemoBtn">Explore demo <svg class="icon"><use href="#i-chevron"/></svg></button></div>
+            <div class="mini-proof"><div class="proof-icon"><svg class="icon"><use href="#i-spark"/></svg></div><div><strong>Learn actively. Remember longer.</strong><span>Less passive reading, more lightbulb moments.</span></div></div>
+          </div>
+          <div class="hero-art" aria-hidden="true">
+            <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="orbit orbit-three"></div>
+            <div class="float-square square-purple">✳</div><div class="float-square square-orange">✦</div>
+            <div class="visual-card tilt-card"><div class="v-top"><span class="v-label">✦ QUICK KNOWLEDGE CHECK</span><span class="v-count">01 / 10</span></div><div class="v-question">What makes active recall so effective?</div><div class="v-option"><span>A</span> Re-reading notes</div><div class="v-option chosen"><span>B</span> Retrieving from memory <b>✓</b></div><div class="v-option"><span>C</span> Highlighting passages</div><div class="v-feedback">✧ Great work! Your brain is building connections.</div></div>
+            <div class="float-chip chip-top"><span>✦</span> AI-powered learning</div>
+            <div class="float-chip chip-bottom"><span>⚡</span> Instant feedback</div>
+          </div>
+          <div class="feature-strip"><div><span class="feat-icon feat-violet"><svg class="icon"><use href="#i-spark"/></svg></span><strong>Smart questions</strong><small>Grounded in your PDF</small></div><div><span class="feat-icon feat-blue"><svg class="icon"><use href="#i-target"/></svg></span><strong>Learn by doing</strong><small>Hints, answers & why</small></div><div><span class="feat-icon feat-orange"><svg class="icon"><use href="#i-message"/></svg></span><strong>Always curious</strong><small>Ask AI to explain more</small></div></div>
+        </section>
+
+        <section class="loading-view hidden" id="loadingView" aria-live="polite">
+          <div class="loading-animation"><span class="loading-orbit l-orbit-1"></span><span class="loading-orbit l-orbit-2"></span><span class="loading-gem">✦</span></div>
+          <span class="eyebrow">STUDY MAGIC IN PROGRESS</span><h2>Turning pages into possibilities<span class="waiting-dots">...</span></h2><p id="loadingMessage">Reading your material and crafting questions.</p>
+          <div class="loading-steps"><span class="step-on">Reading PDF</span><span>Finding key concepts</span><span>Building your test</span></div>
+          <div class="generation-status"><div class="generation-meter"><span id="loadingBar"></span></div><div class="generation-numbers"><span id="loadingPercent">0% complete</span><span id="loadingElapsed">Elapsed 00:00</span></div><p id="loadingEta">Estimating time after the first completed batch…</p></div>
+          <p class="loading-sub">Time remaining is an estimate based on this run. You can cancel at any point.</p>
+          <button class="secondary-outline" id="cancelBtn">Cancel request</button>
+        </section>
+
+        <section class="quiz-view hidden" id="quizView">
+          <div class="quiz-head"><div><div class="eyebrow" id="quizSource">YOUR PERSONALIZED TEST</div><h2 id="quizTitle">Ready to learn?</h2></div><div class="quiz-head-actions"><span class="question-count" id="questionCount">Question 1 of 10</span><button class="mini-action" id="quitBtn" title="Finish and view results"><svg class="icon"><use href="#i-close"/></svg></button></div></div>
+          <div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
+          <div class="question-metadata"><span class="meta-chip" id="topicChip">✦ Study concept</span><span class="meta-chip page-chip" id="pageChip">Source · p. 1</span><span class="timer-pill" id="timerPill"><svg class="icon"><use href="#i-clock"/></svg><span id="timeLeft">01:00</span></span></div>
+          <div class="question-card" id="questionCard"><div class="question-kicker"><span class="q-number" id="qNumber">01</span><span>MULTIPLE CHOICE · SELECT ONE</span></div><h3 id="questionText"></h3><div class="diagram-container hidden" id="diagramContainer"><div class="diagram-label"><svg class="icon"><use href="#i-image"/></svg><span id="diagramLabel">Figure from your PDF</span><button class="diagram-expand" id="expandDiagram"><svg class="icon"><use href="#i-max"/></svg> Expand</button></div><img id="diagramImage" alt="Source page from uploaded PDF, which may contain an accompanying diagram" /></div><div class="options-grid" id="optionsGrid"></div><div class="result-feedback hidden" id="feedback"></div><div class="explanation hidden" id="explanationBox"><div class="explain-title"><svg class="icon"><use href="#i-spark"/></svg> UNDERSTAND THE WHY</div><p id="explanationText"></p></div><div class="hint-box hidden" id="hintBox"><svg class="icon"><use href="#i-bulb"/></svg><span id="hintText"></span></div></div>
+          <div class="quiz-bottom"><button class="text-action" id="hintBtn"><svg class="icon"><use href="#i-bulb"/></svg> Get a hint</button><button class="text-action" id="questionAskBtn"><svg class="icon"><use href="#i-message"/></svg> Ask ChatGPT</button><div class="bottom-spacer"></div><button class="skip-btn" id="skipBtn">Skip</button><button class="primary-btn next-btn hidden" id="nextBtn">Next question <svg class="icon"><use href="#i-arrow"/></svg></button></div>
+        </section>
+
+        <section class="summary-view hidden" id="summaryView"><div class="score-deco">✦</div><span class="eyebrow">SESSION COMPLETE</span><h2>Every question counts.</h2><p>Your progress is the real win. Here's how you did.</p><div class="score-circle"><div><strong id="scorePercent">80%</strong><span>ACCURACY</span></div></div><div class="summary-metrics"><div><strong id="correctCount">8</strong><span>Correct</span></div><div><strong id="incorrectCount">1</strong><span>Incorrect</span></div><div><strong id="skippedCount">1</strong><span>Skipped</span></div></div><div class="summary-actions"><button class="primary-btn" id="retakeBtn"><svg class="icon"><use href="#i-refresh"/></svg> Retake test</button><button class="secondary-outline" id="exportBtn"><svg class="icon"><use href="#i-download"/></svg> Export results</button></div><button class="another-btn" id="newQuizBtn">Create a new quiz →</button><div class="review-panel"><div class="review-title">Question review <span id="reviewCaption"></span></div><div id="reviewList"></div></div></section>
+      </main>
+    </div>
+    <footer class="app-footer"><span>✦ Crafted for curious minds</span><span>LumiQuiz <span class="footer-spark">✧</span> Study smarter, not longer.</span></footer>
+  </div>
+
+  <div class="drawer-scrim hidden" id="drawerScrim"></div>
+  <aside class="chat-drawer" id="chatDrawer" role="dialog" aria-modal="true" aria-label="Ask ChatGPT study assistant" aria-hidden="true">
+    <div class="chat-head"><div class="chat-head-icon"><svg class="icon"><use href="#i-spark"/></svg></div><div><h3>Your study companion</h3><span>Powered by OpenAI API when configured</span></div><button class="icon-button" id="closeChatBtn" aria-label="Close assistant"><svg class="icon"><use href="#i-close"/></svg></button></div>
+    <div class="chat-history" id="chatHistory"><div class="assistant-bubble"><span class="chat-avatar">✦</span><div>Hi! I'm here to help you go deeper. Ask about a question, explain a concept, or request a simpler example.</div></div></div>
+    <div class="chat-quick" id="chatQuick"><button data-quick="Explain this in simpler terms.">Make it simpler</button><button data-quick="Why are the other options incorrect?">Why not the others?</button><button data-quick="Give me a mnemonic for this concept.">Make a mnemonic</button></div>
+    <form class="chat-form" id="chatForm"><label class="sr-only" for="chatInput">Ask a question</label><textarea id="chatInput" placeholder="Ask anything about this question..." rows="2" maxlength="2000" required></textarea><button type="submit" id="sendChatBtn" aria-label="Send message"><svg class="icon"><use href="#i-arrow"/></svg></button></form>
+    <div class="chat-foot"><span id="chatFootText">Questions are answered using your selected PDF context.</span><button id="openChatGPTBtn">Open ChatGPT ↗</button></div>
+  </aside>
+
+  <div class="modal-backdrop hidden" id="imageModal" role="dialog" aria-modal="true" aria-label="Expanded PDF page"><div class="image-modal-card"><div class="image-modal-head"><strong>PDF source page</strong><button id="closeImageModal" class="icon-button" aria-label="Close image"><svg class="icon"><use href="#i-close"/></svg></button></div><img id="imageModalImg" alt="Expanded PDF source page" /></div></div>
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+  <script>
+(() => {
+  'use strict';
+  const $ = (id) => document.getElementById(id);
+  const base = location.protocol === 'file:' ? 'http://127.0.0.1:8000' : '';
+  const storage = {get(key){try{return localStorage.getItem(key);}catch{return null;}},set(key,value){try{localStorage.setItem(key,value);}catch{}}};
+  const state = {
+    document: null, selectedFile: null, aiReady: false,
+    count: 10, difficulty: 'Balanced', includeDiagrams: true,
+    quiz: [], answers: [], index: 0, hintCount: 0, isDemo: false,
+    timerHandle: null, secondsLeft: 0, busy: false, controller: null,
+    startedAt: null, elapsedHandle: null, chatBusy: false, finishedBatches: 0, totalBatches: 1,
+    filename: 'Sample quiz'
+  };
+  const sample = [
+    {id:'sample-1', topic:'PSYCHOPHARMACOLOGY', question:'Which neurotransmitter system is directly enhanced by benzodiazepines?',options:['Dopaminergic signalling at D₂ receptors','GABA-mediated inhibition at GABA-A receptors','Serotonin reuptake inhibition','NMDA receptor activation'],answer_index:1,hint:'Think of the principal inhibitory transmitter in the CNS.',explanation:'Benzodiazepines are positive allosteric modulators of GABA-A receptors. In the presence of GABA, they increase the frequency of chloride-channel opening, promoting neuronal inhibition. They do not directly block serotonin reuptake or activate NMDA receptors.',source_page:1,diagram_page:-1},
+    {id:'sample-2', topic:'CLINICAL PSYCHIATRY',question:'Which finding is most consistent with a panic attack?',options:['Progressive memory decline over years','Abrupt intense fear with palpitations and dyspnoea','Persistently elevated mood for two weeks','Fixed false belief without anxiety'],answer_index:1,hint:'Think about onset, peak intensity, and autonomic symptoms.',explanation:'Panic attacks are abrupt surges of intense fear or discomfort, frequently accompanied by palpitations, shortness of breath, sweating, trembling, or fear of dying. They typically peak within minutes. The other options describe syndromes with different core features.',source_page:1,diagram_page:null},
+    {id:'sample-3', topic:'PSYCHOPATHOLOGY',question:'A patient believes their neighbours are plotting to harm them despite clear contrary evidence. Which term best describes this?',options:['Obsession','Persecutory delusion','Depersonalisation','Illusion'],answer_index:1,hint:'This is a fixed belief about being targeted.',explanation:'A persecutory delusion involves a fixed false belief that another person or group intends harm, surveillance, harassment, or persecution. An obsession is typically experienced as intrusive and unwanted, while depersonalisation describes a sense of detachment from oneself.',source_page:1,diagram_page:null},
+    {id:'sample-4', topic:'COGNITION',question:'Which brain structure has a central role in forming new episodic memories?',options:['Primary visual cortex','Hippocampus','Medulla oblongata','Primary motor cortex'],answer_index:1,hint:'Think of the medial temporal lobe.',explanation:'The hippocampus and nearby medial temporal structures support the encoding and consolidation of new declarative, including episodic, memories. The occipital cortex chiefly processes visual information, and the primary motor cortex is responsible for voluntary motor output.',source_page:1,diagram_page:null},
+    {id:'sample-5', topic:'LEARNING SCIENCE',question:'Which approach typically improves long-term retention more than simply rereading a passage?',options:['Retrieval practice with feedback','Highlighting every sentence','Avoiding difficult questions','Cramming only on the last day'],answer_index:0,hint:'Try recalling knowledge before seeing the answer.',explanation:'Active retrieval strengthens the ability to access material later. Feedback corrects errors, and spaced retrieval helps consolidate learning over time. Repeated rereading can feel familiar without ensuring that information can actually be recalled.',source_page:1,diagram_page:null}
+  ];
+
+  function showToast(message, ms=4100) {
+    const node=document.createElement('div'); node.className='toast';node.setAttribute('role','status');node.textContent=message;
+    $('toastContainer').appendChild(node);window.setTimeout(()=>node.remove(),ms);
+  }
+  function scrollToActive(section='quizView') {
+    const compact=window.matchMedia('(max-width:930px)').matches;
+    const target=compact&&section!=='welcomeView'?Math.max(0,$('mainArea').getBoundingClientRect().top+window.scrollY-6):0;
+    window.scrollTo({top:target,behavior:'instant'});
+  }
+  function show(section) {
+    ['welcomeView','loadingView','quizView','summaryView'].forEach(id=>$(id).classList.toggle('hidden',id!==section));
+    if(section!=='loadingView')stopElapsed();
+    scrollToActive(section);
+  }
+  function setTheme(theme) {
+    document.documentElement.dataset.theme=theme;
+    document.body.dataset.theme=theme;
+    storage.set('lumiquiz-theme',theme);
+    $('themeIcon').querySelector('use').setAttribute('href',theme==='dark'?'#i-sun':'#i-moon');
+    $('themeBtn').setAttribute('aria-label',theme==='dark'?'Switch to light mode':'Switch to dark mode');
+  }
+  setTheme(storage.get('lumiquiz-theme')==='dark'?'dark':'light');
+  $('themeBtn').addEventListener('click',()=>setTheme(document.documentElement.dataset.theme==='dark'?'light':'dark'));
+
+  async function status() {
+    try {
+      const response=await fetch(base+'/api/status');if(!response.ok)throw Error('No backend');
+      const data=await response.json();state.aiReady=Boolean(data.ai_ready);
+      $('aiStatusLabel').textContent=state.aiReady?'AI connected':'Demo mode · add API key';
+      $('aiStatus').classList.toggle('ready',state.aiReady);
+    } catch { state.aiReady=false;$('aiStatusLabel').textContent='Demo available'; }
+  }
+  status();
+
+  function countChanged(value) {
+    state.count=Math.min(40,Math.max(5,Number(value)||10));
+    $('countSlider').value=String(state.count);$('countOutput').textContent=String(state.count);
+    $('countSlider').style.setProperty('--range-percent',((state.count-5)/35*100)+'%');
+  }
+  $('countSlider').addEventListener('input',e=>countChanged(e.target.value));countChanged(10);
+  document.querySelectorAll('[data-difficulty]').forEach(btn=>btn.addEventListener('click',()=>{
+    state.difficulty=btn.dataset.difficulty;
+    document.querySelectorAll('[data-difficulty]').forEach(x=>x.classList.toggle('active',x===btn));
+  }));
+  $('timerToggle').addEventListener('change',()=>{$('timeRow').classList.toggle('hidden',!$('timerToggle').checked);});
+  $('diagramToggle').addEventListener('change',()=>{state.includeDiagrams=$('diagramToggle').checked;});
+
+  async function uploadPDF(file) {
+    if(!file || state.busy)return;
+    if(!file.name.toLowerCase().endsWith('.pdf'))return showToast('Choose a PDF file.');
+    if(file.size>18*1024*1024)return showToast('Maximum PDF size is 18 MB.');
+    state.document=null;state.selectedFile=file;state.busy=true;
+    $('generateBtn').disabled=true;$('uploadPlaceholder').classList.add('hidden');
+    $('filePresent').classList.remove('hidden');$('fileName').textContent=file.name;
+    $('fileMeta').textContent='Uploading and checking PDF…';
+    try {
+      const form=new FormData();form.append('file',file);
+      const response=await fetch(base+'/api/upload',{method:'POST',body:form});
+      const data=await response.json().catch(()=>({}));
+      if(!response.ok)throw Error(data.detail||'PDF upload failed');
+      state.document=data;state.filename=data.filename;
+      $('fileMeta').textContent=`${data.pages} pages · ${(data.size/1024/1024).toFixed(2)} MB · ready`;
+      $('generateBtn').disabled=false;
+      if(!data.has_text)showToast('This appears to be a scanned PDF; visual AI reading will be used during generation.',5800);
+      else showToast('PDF ready. Choose your settings and generate your test.');
+    }catch(err){
+      $('fileMeta').textContent='Upload failed · click to retry';
+      showToast(err.message||'Start the backend to upload PDFs.',5700);
+    }finally{state.busy=false;$('pdfInput').value='';}
+  }
+  $('pdfInput').addEventListener('change',e=>uploadPDF(e.target.files?.[0]));
+  $('uploadZone').addEventListener('click',e=>{if(e.target!==$('pdfInput'))$('pdfInput').click();});
+  $('uploadZone').addEventListener('keydown',e=>{if(['Enter',' '].includes(e.key)){e.preventDefault();$('pdfInput').click();}});
+  ['dragenter','dragover'].forEach(type=>$('uploadZone').addEventListener(type,e=>{e.preventDefault();$('uploadZone').classList.add('dragover');}));
+  ['dragleave','drop'].forEach(type=>$('uploadZone').addEventListener(type,e=>{e.preventDefault();$('uploadZone').classList.remove('dragover');}));
+  $('uploadZone').addEventListener('drop',e=>uploadPDF(e.dataTransfer?.files?.[0]));
+  $('heroUploadBtn').addEventListener('click',()=>{$('pdfInput').click();});
+
+  const timeString=(n)=>`${String(Math.floor(n/60)).padStart(2,'0')}:${String(n%60).padStart(2,'0')}`;
+  function startElapsed() {
+    stopElapsed();state.startedAt=Date.now();state.finishedBatches=0;state.totalBatches=Math.ceil(state.count/10);
+    $('loadingBar').style.width='0%';$('loadingPercent').textContent='0% complete';
+    $('loadingElapsed').textContent='Elapsed 00:00';
+    $('loadingEta').textContent='Estimating time after the first completed batch…';
+    state.elapsedHandle=setInterval(()=>{
+      const elapsed=Math.floor((Date.now()-state.startedAt)/1000);
+      $('loadingElapsed').textContent='Elapsed '+timeString(elapsed);
+      if(state.finishedBatches>0){
+        const remaining=Math.max(0,Math.ceil((elapsed/state.finishedBatches)*(state.totalBatches-state.finishedBatches)));
+        $('loadingEta').textContent=state.finishedBatches===state.totalBatches?'Finishing your test…':`Approx. ${timeString(remaining)} remaining · may vary`;
+      }
+    },1000);
+  }
+  function stopElapsed(){if(state.elapsedHandle){clearInterval(state.elapsedHandle);state.elapsedHandle=null;}}
+  function loadingProgress(phase, completed=0, total=1, finishedBatches=null) {
+    const steps=document.querySelectorAll('.loading-steps span');
+    steps.forEach((x,i)=>x.classList.toggle('step-on',i===(phase==='reading'?0:phase==='crafting'?1:2)));
+    const words={reading:'Preparing your PDF for question generation…',crafting:`Creating questions from your PDF · batch ${Math.min(completed+1,total)} of ${total}`,reviewing:`Created ${completed} questions. Preparing the next batch…`};
+    $('loadingMessage').textContent=words[phase]||'Getting your quiz ready…';
+    if(Number.isInteger(finishedBatches)){
+      state.finishedBatches=finishedBatches;state.totalBatches=total;
+      const percentage=Math.round(100*finishedBatches/Math.max(total,1));
+      $('loadingBar').style.width=percentage+'%';
+      $('loadingPercent').textContent=percentage+'% complete';
+    }
+  }
+  function cancelGeneration(){if(state.controller)state.controller.abort();state.controller=null;state.busy=false;show('welcomeView');showToast('Generation cancelled in the browser.');}
+  $('cancelBtn').addEventListener('click',cancelGeneration);
+  async function generate() {
+    if(state.busy)return;
+    if(!state.document)return showToast('Upload a PDF first, or explore the demo.');
+    if(!state.aiReady)return showToast('AI requires OPENAI_API_KEY configured on the Python server. The sample quiz works without it.',5800);
+    state.busy=true;state.controller=new AbortController();show('loadingView');startElapsed();loadingProgress('reading');
+    try{
+      const res=await fetch(base+'/api/quiz/stream',{
+        method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({document_id:state.document.document_id,count:state.count,difficulty:state.difficulty,include_diagrams:$('diagramToggle').checked}),
+        signal:state.controller.signal
+      });
+      if(!res.ok){const data=await res.json().catch(()=>({}));throw Error(data.detail||'Could not generate questions');}
+      if(!res.body)throw Error('Your browser does not support streaming responses.');
+      const reader=res.body.getReader(),decoder=new TextDecoder();let buffer='',quizData=null;
+      while(true){
+        const {value,done}=await reader.read();if(done)break;buffer+=decoder.decode(value,{stream:true});
+        let i;while((i=buffer.indexOf('\n'))>=0){
+          const line=buffer.slice(0,i).trim();buffer=buffer.slice(i+1);if(!line)continue;
+          const event=JSON.parse(line);
+          if(event.type==='progress')loadingProgress('crafting',event.completed,event.total_batches||1);
+          if(event.type==='batch_complete')loadingProgress('reviewing',event.completed,event.total_batches||1,event.finished_batches??Math.ceil(event.completed/10));
+          if(event.type==='result')quizData=event;
+          if(event.type==='error')throw Error(event.message||'AI question generation failed');
+        }
+      }
+      if(!quizData?.questions?.length)throw Error('No questions were returned. Try again or choose fewer questions.');
+      state.filename=quizData.document_name||state.filename;
+      startQuiz(quizData.questions,false);
+      if(quizData.questions.length!==state.count)showToast(`Created ${quizData.questions.length} valid questions (requested ${state.count}).`);
+    }catch(err){
+      if(err.name!=='AbortError'){show('welcomeView');showToast(err.message||'Generation could not be completed.',6500);}
+    }finally{state.busy=false;state.controller=null;stopElapsed();}
+  }
+  $('generateBtn').addEventListener('click',generate);
+
+  function demo(){state.filename='Sample psychiatry quiz';startQuiz(sample.map(q=>({...q,options:[...q.options]})),true);}
+  $('demoBtn').addEventListener('click',demo);
+  $('heroDemoBtn').addEventListener('click',demo);
+
+  function stopTimer(){if(state.timerHandle){clearInterval(state.timerHandle);state.timerHandle=null;}}
+  function startTimer(){
+    stopTimer();if(!$('timerToggle').checked){$('timerPill').classList.add('hidden');return;}
+    $('timerPill').classList.remove('hidden');state.secondsLeft=Number($('timerSelect').value)||60;
+    $('timeLeft').textContent=timeString(state.secondsLeft);$('timerPill').classList.remove('urgent');
+    state.timerHandle=setInterval(()=>{
+      if(state.answers[state.index]!==undefined){stopTimer();return;}
+      state.secondsLeft=Math.max(0,state.secondsLeft-1);$('timeLeft').textContent=timeString(state.secondsLeft);
+      $('timerPill').classList.toggle('urgent',state.secondsLeft<=10);
+      if(state.secondsLeft===0)answer(null,'timeout');
+    },1000);
+  }
+  function startQuiz(items,isDemo){
+    stopTimer();state.quiz=items;state.index=0;state.answers=Array(items.length).fill(undefined);
+    state.hintCount=0;state.isDemo=isDemo;show('quizView');renderQuestion();
+  }
+  function correctCount(){return state.answers.reduce((n,a,i)=>n+(a===state.quiz[i].answer_index?1:0),0);}
+  function renderQuestion(){
+    const q=state.quiz[state.index];if(!q)return;
+    $('quizSource').textContent=state.isDemo?'SAMPLE PRACTICE TEST':state.filename;
+    $('quizTitle').textContent=state.isDemo?'Psychiatry essentials':'Your personalised practice test';
+    $('questionCount').textContent=`Question ${state.index+1} of ${state.quiz.length}`;
+    $('progressBar').style.width=`${100*(state.index+1)/state.quiz.length}%`;
+    $('topicChip').textContent='✦ '+(q.topic||'KEY CONCEPT');
+    $('pageChip').textContent=state.isDemo?'Demo practice':`PDF · page ${q.source_page||1}`;
+    $('qNumber').textContent=String(state.index+1).padStart(2,'0');
+    $('questionText').textContent=q.question;
+    $('hintBox').classList.add('hidden');$('hintText').textContent=q.hint||'Look for a clue in the question.';
+    $('feedback').className='result-feedback hidden';$('feedback').replaceChildren();
+    $('explanationBox').classList.add('hidden');$('explanationText').textContent='';
+    $('hintBtn').disabled=false;$('skipBtn').disabled=false;$('nextBtn').classList.add('hidden');
+    $('nextBtn').innerHTML=state.index===state.quiz.length-1?'See results <svg class="icon"><use href="#i-arrow"/></svg>':'Next question <svg class="icon"><use href="#i-arrow"/></svg>';
+    const options=$('optionsGrid');options.replaceChildren();
+    q.options.forEach((text,index)=>{
+      const b=document.createElement('button');b.className='option-btn';b.type='button';
+      const key=document.createElement('span');key.className='option-letter';key.textContent='ABCD'[index];
+      const label=document.createElement('span');label.textContent=text;
+      b.append(key,label);b.addEventListener('click',()=>answer(index,'manual'));options.appendChild(b);
+    });
+    const hasImage=(state.isDemo&&q.diagram_page===-1)||(!state.isDemo&&Number.isInteger(q.diagram_page)&&q.diagram_page>0&&state.document);
+    $('diagramContainer').classList.toggle('hidden',!hasImage);
+    if(hasImage){
+      if(state.isDemo){
+        $('diagramImage').src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 580 190"><rect width="580" height="190" rx="12" fill="#f0edff"/><path d="M25 100h530" stroke="#c0b5e2" stroke-width="9"/><rect x="222" y="38" width="130" height="126" rx="32" fill="#987def"/><rect x="276" y="39" width="23" height="125" rx="11" fill="#faf9ff"/><circle cx="160" cy="48" r="20" fill="#74cdb3"/><path d="M180 57l42 35" stroke="#57a593" stroke-width="4" stroke-dasharray="9 5"/><text x="123" y="25" font-family="Arial" font-size="17" fill="#493577">GABA</text><text x="385" y="65" font-family="Arial" font-size="17" fill="#493577">Cl⁻ channel</text><path d="M383 75l-88 31" stroke="#6553b6" stroke-width="2"/></svg>');
+        $('diagramLabel').textContent='Illustrative sample diagram';
+      }else{
+        $('diagramImage').src=`${base}/api/documents/${encodeURIComponent(state.document.document_id)}/pages/${q.diagram_page}/preview`;
+        $('diagramLabel').textContent=`Original PDF · page ${q.diagram_page}`;
+      }
+    }else $('diagramImage').removeAttribute('src');
+    startTimer();
+  }
+  $('diagramImage').addEventListener('error',()=>{$('diagramContainer').classList.add('hidden');showToast('Could not render the original PDF page.');});
+  function answer(choice,reason='manual'){
+    if(state.answers[state.index]!==undefined)return;
+    const q=state.quiz[state.index];if(!q)return;
+    state.answers[state.index]=choice;stopTimer();const correct=choice===q.answer_index;
+    Array.from($('optionsGrid').children).forEach((b,i)=>{
+      b.disabled=true;
+      if(i===q.answer_index)b.classList.add('correct');
+      if(i===choice && !correct)b.classList.add('incorrect');
+      if(i===q.answer_index || i===choice){const tick=document.createElement('strong');tick.style.marginLeft='auto';tick.textContent=i===q.answer_index?'✓':'✕';b.append(tick);}
+    });
+    const feedback=$('feedback');feedback.classList.remove('hidden');feedback.classList.toggle('good',correct);feedback.classList.toggle('bad',!correct);
+    const title=document.createElement('span');title.textContent=correct?'✓ Correct!':reason==='timeout'?'⏱ Time is up':reason==='skip'?'↪ Skipped — learn the answer':'✕ Not quite — keep learning';
+    const detail=document.createElement('span');detail.textContent=` Correct answer: ${'ABCD'[q.answer_index]} · ${q.options[q.answer_index]}`;feedback.append(title,detail);
+    $('explanationText').textContent=q.explanation||'Review this concept in the source document.';
+    $('explanationBox').classList.remove('hidden');$('hintBtn').disabled=true;$('skipBtn').disabled=true;$('nextBtn').classList.remove('hidden');
+  }
+  $('hintBtn').addEventListener('click',()=>{
+    if(state.answers[state.index]!==undefined)return;
+    if($('hintBox').classList.contains('hidden')){state.hintCount++;$('hintBox').classList.remove('hidden');}
+  });
+  $('skipBtn').addEventListener('click',()=>answer(null,'skip'));
+  $('nextBtn').addEventListener('click',()=>{
+    if(state.answers[state.index]===undefined)return;
+    if(state.index>=state.quiz.length-1)return finishQuiz();
+    state.index++;renderQuestion();scrollToActive('quizView');
+  });
+  $('quitBtn').addEventListener('click',()=>{
+    if(confirm('End the quiz and view your results?'))finishQuiz();
+  });
+  function saveResult(result){
+    try {const h=JSON.parse(localStorage.getItem('lumiquiz-history')||'[]');h.unshift(result);localStorage.setItem('lumiquiz-history',JSON.stringify(h.slice(0,25)));}catch{}
+  }
+  function finishQuiz(){
+    stopTimer();if(!state.quiz.length)return;
+    const answered=state.answers.filter(x=>x!==undefined&&x!==null).length;
+    const correct=correctCount(),skipped=state.quiz.length-answered,incorrect=answered-correct;
+    const pct=Math.round(100*correct/state.quiz.length);
+    $('scorePercent').textContent=pct+'%';$('correctCount').textContent=String(correct);
+    $('incorrectCount').textContent=String(incorrect);$('skippedCount').textContent=String(skipped);
+    document.querySelector('.score-circle').style.setProperty('--score',pct+'%');
+    $('reviewCaption').textContent=`${state.quiz.length} question${state.quiz.length===1?'':'s'} · ${state.hintCount} hints used`;
+    const list=$('reviewList');list.replaceChildren();
+    state.quiz.forEach((q,i)=>{
+      const row=document.createElement('div');row.className='review-entry';
+      const badge=document.createElement('span');badge.className='review-status';badge.textContent=state.answers[i]===q.answer_index?'✓ Correct':state.answers[i]===null||state.answers[i]===undefined?'– Skipped':'✕ Incorrect';
+      const title=document.createElement('strong');title.textContent=`${i+1}. ${q.question}`;
+      const p=document.createElement('p');p.textContent=`Answer: ${'ABCD'[q.answer_index]}. ${q.options[q.answer_index]} — ${q.explanation}`;
+      row.append(badge,title,p);list.append(row);
+    });
+    saveResult({name:state.filename,date:new Date().toISOString(),correct,incorrect,skipped,total:state.quiz.length,percent:pct,hints:state.hintCount});
+    show('summaryView');
+  }
+  $('retakeBtn').addEventListener('click',()=>startQuiz(state.quiz.map(q=>({...q,options:[...q.options]})),state.isDemo));
+  $('newQuizBtn').addEventListener('click',()=>show('welcomeView'));
+  $('exportBtn').addEventListener('click',()=>{
+    const payload={document:state.filename,exported_at:new Date().toISOString(),hints_used:state.hintCount,questions:state.quiz.map((q,i)=>({...q,selected_answer_index:state.answers[i]??null,correct:state.answers[i]===q.answer_index}))};
+    const url=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}));
+    const a=document.createElement('a');a.href=url;a.download='lumiquiz-results.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),5000);
+  });
+
+  function openChat(){
+    $('drawerScrim').classList.remove('hidden');$('chatDrawer').classList.add('open');
+    $('chatDrawer').setAttribute('aria-hidden','false');$('chatInput').focus();
+  }
+  function closeChat(){
+    $('drawerScrim').classList.add('hidden');$('chatDrawer').classList.remove('open');
+    $('chatDrawer').setAttribute('aria-hidden','true');
+  }
+  $('askTopBtn').addEventListener('click',openChat);
+  $('questionAskBtn').addEventListener('click',openChat);
+  $('drawerScrim').addEventListener('click',closeChat);
+  $('closeChatBtn').addEventListener('click',closeChat);
+  document.addEventListener('keydown',e=>{if(e.key==='Escape') {closeChat();closeImage();}});
+  function addChatMessage(text,role){
+    const chat=$('chatHistory');const el=document.createElement('div');
+    if(role==='user'){el.className='user-bubble';el.textContent=text;}
+    else{el.className='assistant-bubble';const avatar=document.createElement('span');avatar.className='chat-avatar';avatar.textContent='✦';const content=document.createElement('div');content.textContent=text;el.append(avatar,content);}
+    chat.appendChild(el);chat.scrollTop=chat.scrollHeight;
+    return role==='user'?el:el.lastElementChild;
+  }
+  async function askTutor(message){
+    if(state.chatBusy || !message.trim())return;
+    state.chatBusy=true;$('sendChatBtn').disabled=true;$('chatInput').value='';
+    addChatMessage(message,'user');const output=addChatMessage('Thinking through your question…','ai');
+    const q=state.quiz[state.index];
+    if(!state.aiReady){
+      output.textContent=q?`The AI tutor needs an API key. This question's built-in explanation is:\n\n${q.explanation}\n\nTo get interactive follow-ups, configure OPENAI_API_KEY on your server.`:'To ask the AI tutor about your PDF, configure OPENAI_API_KEY on the server and start a quiz.';
+      state.chatBusy=false;$('sendChatBtn').disabled=false;return;
+    }
+    try {
+      const response=await fetch(base+'/api/ask',{
+        method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({question:q?.question||'Study guidance',answer:q?q.options[q.answer_index]:'',explanation:q?.explanation||'',user_message:message,document_id:state.isDemo?null:state.document?.document_id||null,source_page:q?.source_page||1})
+      });
+      const data=await response.json().catch(()=>({}));if(!response.ok)throw Error(data.detail||'Tutor connection failed');
+      output.textContent=data.answer||'No explanation returned.';
+    }catch(err){output.textContent=`Unable to contact AI: ${err.message}`;}
+    finally{state.chatBusy=false;$('sendChatBtn').disabled=false;$('chatHistory').scrollTop=$('chatHistory').scrollHeight;}
+  }
+  $('chatForm').addEventListener('submit',e=>{e.preventDefault();askTutor($('chatInput').value.trim());});
+  $('chatQuick').querySelectorAll('[data-quick]').forEach(b=>b.addEventListener('click',()=>askTutor(b.dataset.quick)));
+  $('openChatGPTBtn').addEventListener('click',()=>window.open('https://chatgpt.com/','_blank','noopener,noreferrer'));
+
+  function closeImage(){$('imageModal').classList.add('hidden');}
+  $('expandDiagram').addEventListener('click',()=>{
+    $('imageModalImg').src=$('diagramImage').src;
+    $('imageModal').classList.remove('hidden');
+  });
+  $('closeImageModal').addEventListener('click',closeImage);
+  $('imageModal').addEventListener('click',e=>{if(e.target===$('imageModal'))closeImage();});
+
+  const tilt=document.querySelector('.visual-card');
+  if(tilt){
+    tilt.addEventListener('pointermove',event=>{
+      if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+      const box=tilt.getBoundingClientRect();
+      const x=(event.clientX-box.left)/box.width-.5,y=(event.clientY-box.top)/box.height-.5;
+      tilt.style.transform=`rotateY(${(x*9).toFixed(1)}deg) rotateX(${(-y*7).toFixed(1)}deg) translateY(-5px)`;
+    });
+    tilt.addEventListener('pointerleave',()=>{tilt.style.transform='';});
+  }
+  document.addEventListener('pointermove',event=>{
+    const shell=$('siteShell');if(shell){shell.style.setProperty('--pointer-x',event.clientX+'px');shell.style.setProperty('--pointer-y',event.clientY+'px');}
+  },{passive:true});
+  show('welcomeView');
+})();
+
+</script>
+</body>
+</html>
