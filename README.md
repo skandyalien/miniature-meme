@@ -1,5 +1,7 @@
 # LumiQuiz — PDF → MCQ study studio
 
+> Also in this repo: **[ICD-11 Explorer](icd11/README.md)** — searchable WHO ICD-11 codes and descriptions. Open `icd11/index.html`.
+
 A mobile-friendly, light-and-dark 3D study app powered by **FastAPI, PyMuPDF, vanilla JavaScript, and the OpenAI Responses API**.
 
 ## What works
